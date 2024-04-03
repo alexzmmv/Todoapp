@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(90deg, #2980b9, #3498db); /* Updated background gradient */
+    }
+
+    .container {
+        max-width: 950px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .todo {
+        margin-bottom: 20px;
+        padding: 10px;
+        background-color: #f1f1f1;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+
+    .todo h2 {
+        margin-top: 0;
+    }
+
+    .btn {
+        padding: 8px 16px;
+        background-color: #3498db; /* Updated button background color */
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn:hover{
+        background-color: #2980b9; /* Updated hover color */
+    }
+    
+    .delbtn:hover {
+        background-color:rgba(231, 76, 60, 0.8); /* Updated delete button hover color */
+        border-radius: 4px;
+    }
+    .delbtn {
+        padding: 8px 16px;
+        background-color: #e74c3c; /* Updated delete button background color */
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .frm {
+        margin: 20px auto;
+        width: 50%;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .todo_description {
+        margin-top: 0;
+        text-align: justify;
+        word-wrap: break-word;
+    }
+
+    input[type="text"] {
+        width: calc(100% - 16px); /* Adjust input width */
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+        background: #f9f9f9;
+        transition: border-color 0.3s ease;
+    }
+
+    input[type="text"]:hover,
+    input[type="text"]:focus {
+        border-color: #3498db; /* Updated input border color */
+        border-width: 2px;
+        margin-bottom: 8px;
+    }
+</style>
+
+
+</head>
+<body>
+    <form class="frm" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn">Add Task</button>
+    </form>
+        <div class="container">
+        <h1>Todo List</h1>
+        {% for todo in todos %}
+            <div class="todo">
+                <h2>{{ todo.title }}</h2>
+                <p class="todo_description">{{ todo.description }}</p>
+                <form method="post" action="{% url 'delete_todo' todo.id %}">
+                    {% csrf_token %}
+                    <button class="delbtn" type="submit">Completed</button>
+                </form>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

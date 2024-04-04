@@ -22,3 +22,9 @@ def delete_todo(request, todo_id):
     todo = ToDOItem.objects.get(id=todo_id)
     todo.delete()
     return redirect('todo')
+
+def status_todo(request, todo_id):
+    todo = ToDOItem.objects.get(id=todo_id)
+    todo.completed = not todo.completed
+    todo.save()
+    return redirect('todo')

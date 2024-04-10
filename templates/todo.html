@@ -12,7 +12,7 @@
         background: linear-gradient(90deg, #2980b9, #3498db); /* Updated background gradient */
     }
 
-    .container {
+    .container_undone_task {
         max-width: 950px;
         margin: 20px auto;
         padding: 20px;
@@ -102,11 +102,14 @@
     
     .incomplete {
         padding: 8px 16px;
-        background-color: #e74c3c; /* Updated incomplete button background color */
+        background-color: #f1c40f;
         color: #fff;
         border: none;
         border-radius: 4px;
         cursor: pointer;
+    }
+    .incomplete:hover {
+        background-color: #f39c12; /* Updated incomplete button hover color */
     }
     .complete {
         padding: 8px 16px;
@@ -117,6 +120,9 @@
         cursor: pointer;
     }
     
+    .complete:hover {
+        background-color: #27ae60; /* Updated complete button hover color */
+    }
     input[type="text"]:hover,
     input[type="text"]:focus {
         border-color: #3498db; /* Updated input border color */
@@ -139,20 +145,17 @@
         {{ form.as_p }}
         <button type="submit" class="btn">Add Task</button>
     </form>
-        <div class="container">
-        <h1>Todo List</h1>
+    <div class="container_undone_task">
+        <h1>Incompleted tasks</h1>
         {% for todo in todos %}
+            {% if todo.completed == False %}
             <div class="todo">
                     <h2>{{ todo.title }}</h2>
                     <p class="tododescription">{{ todo.description }}</p>
                 <div class="buttons">
                     <form method="post" action="{% url 'status_todo' todo.id %}">
                         {% csrf_token %}
-                        {% if todo.completed == True %}
-                            <button class="complete" type="submit">Mark as Incomplete</button>
-                        {% else %}
-                            <button class="incomplete" type="submit">Mark as Complete</button>
-                        {% endif %}
+                            <button class="complete" type="submit">Mark as Complete</button>
                     </form>
                     <form method="post" action="{% url 'delete_todo' todo.id %}">
                         {% csrf_token %}
@@ -160,6 +163,28 @@
                     </form>
                 </div>
             </div>
+            {% endif %}
+        {% endfor %}
+        </div>
+    <div class="container_undone_task">
+        <h1>Completed Tasks</h1>
+        {% for todo in todos %}
+            {% if todo.completed == True %}
+            <div class="todo">
+                    <h2>{{ todo.title }}</h2>
+                    <p class="tododescription">{{ todo.description }}</p>
+                <div class="buttons">
+                    <form method="post" action="{% url 'status_todo' todo.id %}">
+                        {% csrf_token %}
+                            <button class="incomplete" type="submit">Mark as Incomplete</button>
+                    </form>
+                    <form method="post" action="{% url 'delete_todo' todo.id %}">
+                        {% csrf_token %}
+                        <button class="delbtn" type="submit">Delete</button>
+                    </form>
+                </div>
+            </div>
+            {% endif %}
         {% endfor %}
         </div>
         

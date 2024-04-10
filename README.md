@@ -5,7 +5,8 @@ This is a simple todo list application built with Django.
 ## Features
 
 - Add new todo items with a title and description.
-- View all existing todo items.
+- View all existing todo items by completion status
+-Toggle task completion 
 - Delete todo items.
 
-![image](https://github.com/alexzmmv/Todoapp/assets/147001992/131fa8b6-3cea-4bd9-a25c-55c27b3c40d3)
+![image](https://github.com/alexzmmv/Todoapp/assets/147001992/658ba7c5-7b00-4618-aa97-5a376b1df779)

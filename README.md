@@ -1,6 +1,6 @@
 # Django Todo List
 
-This is a simple todo list application built with Django.
+This is a simple todo list server-site application built with Django and jinja.
 
 ## Features
 
